@@ -14,7 +14,7 @@ class PostModel {
 
 	public $post_id;
 
-	public function uploadPost(){
+	public function createPost(){
 
 		$sql = "INSERT INTO {$this->table}(title, body, created_at ) VALUES(:title, :body, :created_at)";
 		$stmt = $this->conn->prepare($sql);
@@ -30,13 +30,17 @@ class PostModel {
 
 	public function getAllPosts(){
 
-		$sql = "SELECT title, body, created_at, updated_at FROM {$this->table} WHERE pid = :pid";
+		$sql = "SELECT title, body, created_at, updated_at FROM {$this->table}";
 		$stmt = $this->conn->prepare($sql);
 		$stmt->bindParam(':pid', $this->post_id, PDO::PARAM_INT);
 		if($stmt->execute()){
 			return $stmt;
 		}
 		return false;
+	}
+
+	public static function postTest(){
+		return "post working";
 	}
 
 

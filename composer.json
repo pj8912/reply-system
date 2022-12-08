@@ -1,6 +1,12 @@
 {
 	"autoload":{
 	
-		"Reply\\" : "src/"
+		"psr-4":{
+
+		
+			"Reply\\" : "src/"
+	
+		}
 	}
+
 }
