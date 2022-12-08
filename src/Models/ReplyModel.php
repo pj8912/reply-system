@@ -1,42 +1,37 @@
 <?php
 
+
 namespace Reply\Models;
 
-class CommentModel{
+
+class ReplyModel{
 
 	private $conn;
 	public function __construct($db){ 
 		$this->conn = $db;
 	}
 	
-	private $table="comments";
+	public $cid, $body;
 
-	public $cid, $pid, $body;
-
-	public function createComment(){
-
-		$sql = "INSERT INTO {$this->table}(pid, body) VALUES(:pid, :body)";
+	public function createReply(){
+		$sql = "INSERT INTO{$this->table}(cid, body) VALUES(:cid, :body)";
 		$stmt = $this->conn->prepare($sql);
-		$stmt->bindParam(':pid', $this->pid, PDO::PARAM_INT);
+		$stmt->bindParam(':cid', $this->cid, PDO::PARAM_INT);
 		$stmt->bindParam(':body', $this->body, PDO::PARAM_STR);
 		if($stmt->execute()){
 			return true;
 		}
 		return false;
-
 	}
 
-	public function fetchComments(){
-
+	public function getReplies(){
 		$sql = "SELECT * FROM {$this->table}";
 		$stmt = $this->conn->query($sql);
 		if($stmt->execute()){
-			return $stmt->execute();
+			return $stmt;
 		}
 		return false;
+	
 	}
-
-
-
-
+	
 }
