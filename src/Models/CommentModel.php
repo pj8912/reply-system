@@ -15,7 +15,7 @@ class CommentModel{
 
 	public function createComment(){
 
-		$sql = "INSERT INTO {$this->table}(pid, body) VALUES(:pid, :body)";
+		$sql = "INSERT INTO {$this->table}(pid, body, created_at) VALUES(:pid, :body, NOW())";
 		$stmt = $this->conn->prepare($sql);
 		$stmt->bindParam(':pid', $this->pid, PDO::PARAM_INT);
 		$stmt->bindParam(':body', $this->body, PDO::PARAM_STR);
@@ -40,3 +40,7 @@ class CommentModel{
 
 
 }
+
+
+?>
+

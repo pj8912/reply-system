@@ -13,11 +13,13 @@ class ReplyModel{
 	
 	public $cid, $body;
 
+	private $table = "replies";
+
 	public function createReply(){
-		$sql = "INSERT INTO{$this->table}(cid, body) VALUES(:cid, :body)";
+		$sql = "INSERT INTO{$this->table}(cid, body, created_at VALUES(:cid, :body, NOW())";
 		$stmt = $this->conn->prepare($sql);
-		$stmt->bindParam(':cid', $this->cid, PDO::PARAM_INT);
-		$stmt->bindParam(':body', $this->body, PDO::PARAM_STR);
+		$stmt->bindParam(':cid', $this->cid, \PDO::PARAM_INT);
+		$stmt->bindParam(':body', $this->body, \PDO::PARAM_STR);
 		if($stmt->execute()){
 			return true;
 		}
